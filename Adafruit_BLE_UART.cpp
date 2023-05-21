@@ -41,7 +41,7 @@ All text above, and the splash screen below must be included in any redistributi
 #define PRINT_BUFFER_SIZE 20
 
 /* Store the setup for the nRF8001 in the flash of the AVR to save on RAM */
-static const hal_aci_data_t setup_msgs[NB_SETUP_MESSAGES] PROGMEM = SETUP_MESSAGES_CONTENT;
+static const hal_aci_data_t setup_msgs[NB_SETUP_MESSAGES] = SETUP_MESSAGES_CONTENT;
 
 static struct aci_state_t aci_state;            /* ACI state data */
 static hal_aci_evt_t  aci_data;                 /* Command buffer */
@@ -210,7 +210,7 @@ size_t Adafruit_BLE_UART::print(const __FlashStringHelper *ifsh)
 {
   // Copy bytes from flash string into RAM, then send them a buffer at a time.
   char buffer[PRINT_BUFFER_SIZE] = {0};
-  const char PROGMEM *p = (const char PROGMEM *)ifsh;
+  const char *p = (const char *)ifsh;
   size_t written = 0;
   int i = 0;
   unsigned char c = pgm_read_byte(p++);
